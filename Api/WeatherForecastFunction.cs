@@ -6,18 +6,20 @@ using Microsoft.Extensions.Logging;
 
 namespace Api
 {
-    public class HttpTrigger
+    public class WeatherForecastFunction
     {
         private readonly ILogger _logger;
 
-        public HttpTrigger(ILoggerFactory loggerFactory)
+        public WeatherForecastFunction(ILoggerFactory loggerFactory)
         {
-            _logger = loggerFactory.CreateLogger<HttpTrigger>();
+            _logger = loggerFactory.CreateLogger<WeatherForecastFunction>();
         }
 
         [Function("WeatherForecast")]
-        public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
+        public HttpResponseData Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequestData req)
         {
+            _logger.LogInformation("C# HTTP trigger function processed a request.");
+
             var randomNumber = new Random();
             var temp = 0;
 
